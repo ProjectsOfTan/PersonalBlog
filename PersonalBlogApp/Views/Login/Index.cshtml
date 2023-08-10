@@ -1,0 +1,47 @@
+﻿@inject IHttpContextAccessor Accessor
+@using Newtonsoft.Json
+@using Microsoft.Extensions.Configuration.Json
+@using PersonalBlogApp.Models
+@model User
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login & Registration Form</title>
+    <!---Custom CSS File--->
+    <link rel="stylesheet" href="~/css/Login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login form">
+            <header>Login</header>
+            <form asp-controller="Login" asp-action="Index" method="post">
+                <input type="hidden" asp-for="Img" value="temp"/>
+                <input style="margin-top:0px" type="text" placeholder="Enter your email" asp-for="Email">
+                <span style="color: red; margin-bottom: 10px" asp-validation-for="Email"></span><br />
+                <input asp-for="Password" type="password" placeholder="Enter your password">
+                <span style="color: red; margin-bottom: 10px" asp-validation-for="Password"></span><br />
+                @if(ViewBag.error != null){
+                    <span style="color: red; margin-bottom: 10px">@ViewBag.error </span> <br />
+                }
+                <a href="#">Forgot password?</a>
+                <input type="submit" class="button" value="Login">
+            </form>
+            <div class="signup">
+                <span class="signup">
+                    Don't have an account?
+                    <label onclick="register()" for="check">Signup</label>
+                </span>
+            </div>
+        </div>
+    </div>
+    <script>
+        function register(){
+            window.location = "/Register/Index";
+        }
+    </script>
+</body>
+</html>

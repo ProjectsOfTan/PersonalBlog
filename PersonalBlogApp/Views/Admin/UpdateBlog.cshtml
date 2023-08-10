@@ -1,0 +1,266 @@
+﻿@model Blog
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="~/assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="~/assets/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        Trang chủ
+    </title>
+    <base href="http://localhost:5116/" />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <!-- CSS Files -->
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="~/assets/demo/demo.css" rel="stylesheet" />
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+</head>
+
+<body onload="notice('@ViewBag.success')">
+    @{
+        ViewBag.success = null;
+        string session = Accessor.HttpContext.Session.GetString("acc");
+        User user = JsonConvert.DeserializeObject<User>(session);
+    }
+    <div class="wrapper ">
+        <div class="sidebar" data-color="white" data-active-color="danger">
+            <div class="logo">
+                <a href="Admin/UpdateUser" class="simple-text logo-mini">
+                    <div class="logo-image-small">
+                        <img src="~/assets/img/@user.Img">
+                    </div>
+                    <!-- <p>CT</p> -->
+                </a>
+                <a href="Admin/UpdateUser" class="simple-text logo-normal">
+                    @user.Name
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li class="active ">
+                        <a href="Admin/Index">
+                            <i class="nc-icon nc-bank"></i>
+                            <p>Thống kê</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Admin/AddBlog">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            <p>Thêm bài viết</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Admin/UpdateUser">
+                            <i class="nc-icon nc-single-02"></i>
+                            <p>Tài Khoản</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+                <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                        <div class="navbar-toggle">
+                            <button type="button" class="navbar-toggler">
+                                <span class="navbar-toggler-bar bar1"></span>
+                                <span class="navbar-toggler-bar bar2"></span>
+                                <span class="navbar-toggler-bar bar3"></span>
+                            </button>
+                        </div>
+                        <a class="navbar-brand" href="javascript:;">Chỉnh sửa bài viết</a>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                        <span class="navbar-toggler-bar navbar-kebab"></span>
+                    </button>
+                </div>
+            </nav>
+            <!-- End Navbar -->
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="tile">
+                            <h3 class="tile-title">Chỉnh sửa bài viết</h3>
+                            <div class="tile-body">
+                                <form enctype="multipart/form-data" class="row" asp-controller="Admin" asp-action="UpdateBlog" id="frm" method="post">
+                                    <input id="date" type="hidden" asp-for="PublishedDate" />
+                                    <input type="hidden" asp-for="Id" value="@Model.Id" />
+                                    <div class="form-group col-md-12">
+                                        <label class="control-label">Tiêu đề</label>
+                                        <input value="@Model.Title" asp-for="Title" class="form-control" type="text">
+                                        <span style="color:red; font-size:15px;" asp-validation-for="Title"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="control-label">Thể loại</label>
+                                        <select class="form-control" asp-for="CategoryId">
+                                            <option value="0">Tất cả</option>
+                                            @foreach (Category c in ViewBag.cates)
+                                            {
+                                                if (c.Id == Model.CategoryId)
+                                                {
+                                                    <option selected value="@c.Id">@c.Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@c.Id">@c.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                        <span style="color:red; font-size:15px;" asp-validation-for="CategoryId"></span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="control-label">Ảnh tiêu đề - file ảnh cũ: @Model.BigImage</label>
+                                        <input accept=".jpg,.jpeg,.png" id="img" style="opacity:1;position:relative;height:auto" class="form-control" type="file" name="Img">
+                                        <input value="@Model.BigImage" id="nameimg" type="hidden" asp-for="BigImage" />
+                                        <span style="color:red; font-size:15px;" asp-validation-for="BigImage"></span>
+                                    </div>
+                                    <div class="form-group col-md-12" id="P1">
+                                        <label class="control-label">Mô tả ngắn</label><br />
+                                        <textarea id="des" asp-for="shortDescription">@Model.shortDescription</textarea>
+                                        <span style="color:red; font-size:15px;" asp-validation-for="shortDescription"></span>
+                                    </div>
+                                    <div class="form-group col-md-12" id="P1">
+                                        <label class="control-label">Nội dung</label><br />
+                                        <textarea id="Content" asp-for="Content">@Model.Content</textarea>
+                                        <span style="color:red; font-size:15px;" asp-validation-for="Content"></span>
+                                    </div>
+                                </form>
+                                <button onclick="time();submitForm()" class="btn btn-save ml-2" type="button">Lưu lại</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--   Core JS Files   -->
+        <script src="~/assets/js/core/jquery.min.js"></script>
+        <script src="~/assets/js/core/popper.min.js"></script>
+        <script src="~/assets/js/core/bootstrap.min.js"></script>
+        <script src="~/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+        <!--  Google Maps Plugin    -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+        <!-- Chart JS -->
+        <script src="~/assets/js/plugins/chartjs.min.js"></script>
+        <!--  Notifications Plugin    -->
+        <script src="~/assets/js/plugins/bootstrap-notify.js"></script>
+        <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+        <script src="~/assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+        <script src="~/assets/demo/demo.js"></script>
+        <script>
+            function submitForm() {
+                document.getElementById('frm').submit();
+            }
+
+            document.getElementById('img').addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                document.getElementById('nameimg').value = file.name;
+            });
+
+            function notice(ok) {
+                if (ok === "ok") {
+                    console.log("ok");
+                    swal({
+                        icon: 'success',
+                        text: 'Đã chỉnh sửa bài viết thành công!'
+                    });
+                }
+            }
+
+            $(document).ready(function () {
+                // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
+                demo.initChartsPages();
+            });
+
+            tinymce.init({
+                selector: 'textarea#des',
+                toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify',
+                menubar: false,
+                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+            });
+
+            tinymce.init({
+                selector: 'textarea#Content',
+                plugins: ['directionality', 'preview', 'searchreplace', 'image', 'code', 'table', 'quickbars', 'editimage', 'help', 'fullscreen', 'emoticons', 'insertdatetime', 'lists', 'advlist', 'link', 'footnotes'],
+                toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent\n\
+                                                                                          | link image | table | searchreplace preview | ltr rtl | insertdatetime | fullscreen | emoticons | code | help',
+                editimage_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
+                quickbars_insert_toolbar: 'alignleft aligncenter alignright | rotateleft rotateright | imageoptions',
+                toolbar_mode: 'floating',
+                menubar: 'edit view insert format table',
+                file_picker_types: 'image',
+                file_picker_callback: (cb, value, meta) => {
+                    var input = document.createElement('input');
+                    input.setAttribute('type', 'file');
+                    input.setAttribute('accept', 'image/*');
+                    input.addEventListener('change', (e) => {
+                        const file = e.target.files[0];
+                        const reader = new FileReader();
+                        reader.addEventListener('load', () => {
+                            var xhr, formData;
+                            xhr = new XMLHttpRequest();
+                            xhr.withCredentials = false;
+                            xhr.open('POST', '/Admin/ImageHandle');
+                            xhr.onload = function () {
+                                var json;
+                                if (xhr.status != 200) {
+                                    cb('');
+                                    return;
+                                }
+                                try {
+                                    json = JSON.parse(xhr.responseText);
+                                    console.log(xhr.responseText);
+                                } catch (e) {
+                                    console.error('Invalid JSON string:' + e);
+                                }
+
+                                if (!json || typeof json.location != 'string') {
+                                    cb('');
+                                    return;
+                                }
+                                cb('img/' + json.location);
+                            };
+                            formData = new FormData();
+                            formData.append('file', file);
+                            xhr.send(formData);
+                        });
+                        reader.readAsDataURL(file);
+                    });
+                    input.click();
+                },
+                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+                images_upload_url: 'ImageHandle',
+                automatic_upload: true
+            });
+
+            function time() {
+                var today = new Date();
+                var weekday = new Array(7);
+                var dd = today.getDate();
+                var mm = today.getMonth() + 1;
+                var yyyy = today.getFullYear();
+                var h = today.getHours();
+                var m = today.getMinutes();
+                var s = today.getSeconds();
+                nowTime = h + ":" + m + ":" + s;
+                today = yyyy + '-' + mm + '-' + dd;
+                tmp = today + ' ' + nowTime;
+                document.getElementById('date').value = tmp;
+            }
+        </script>
+</body>
+
+</html>
+

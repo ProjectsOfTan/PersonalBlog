@@ -1,0 +1,188 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="NewFolder1\**" />
+    <Content Remove="NewFolder1\**" />
+    <EmbeddedResource Remove="NewFolder1\**" />
+    <None Remove="NewFolder1\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\Admin\img\ads-728x90.png" />
+    <Content Remove="wwwroot\Admin\img\news-110x110-1.jpg" />
+    <Content Remove="wwwroot\Admin\img\news-110x110-2.jpg" />
+    <Content Remove="wwwroot\Admin\img\news-110x110-3.jpg" />
+    <Content Remove="wwwroot\Admin\img\news-110x110-4.jpg" />
+    <Content Remove="wwwroot\Admin\img\news-110x110-5.jpg" />
+    <Content Remove="wwwroot\Admin\img\news-700x435-1.jpg" />
+    <Content Remove="wwwroot\Admin\img\news-700x435-2.jpg" />
+    <Content Remove="wwwroot\Admin\img\news-700x435-3.jpg" />
+    <Content Remove="wwwroot\Admin\img\news-700x435-4.jpg" />
+    <Content Remove="wwwroot\Admin\img\news-700x435-5.jpg" />
+    <Content Remove="wwwroot\Admin\img\news-800x500-1.jpg" />
+    <Content Remove="wwwroot\Admin\img\news-800x500-2.jpg" />
+    <Content Remove="wwwroot\Admin\img\news-800x500-3.jpg" />
+    <Content Remove="wwwroot\Admin\img\user.jpg" />
+    <Content Remove="wwwroot\css\style.css" />
+    <Content Remove="wwwroot\css\style.min.css" />
+    <Content Remove="wwwroot\js\main.js" />
+    <Content Remove="wwwroot\lib\owlcarousel\assets\owl.carousel.css" />
+    <Content Remove="wwwroot\lib\owlcarousel\assets\owl.carousel.min.css" />
+    <Content Remove="wwwroot\lib\owlcarousel\assets\owl.theme.default.css" />
+    <Content Remove="wwwroot\lib\owlcarousel\assets\owl.theme.default.min.css" />
+    <Content Remove="wwwroot\lib\owlcarousel\assets\owl.theme.green.css" />
+    <Content Remove="wwwroot\lib\owlcarousel\assets\owl.theme.green.min.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Admin\img\ads-728x90.png" />
+    <None Include="wwwroot\Admin\img\news-110x110-1.jpg" />
+    <None Include="wwwroot\Admin\img\news-110x110-2.jpg" />
+    <None Include="wwwroot\Admin\img\news-110x110-3.jpg" />
+    <None Include="wwwroot\Admin\img\news-110x110-4.jpg" />
+    <None Include="wwwroot\Admin\img\news-110x110-5.jpg" />
+    <None Include="wwwroot\Admin\img\news-700x435-1.jpg" />
+    <None Include="wwwroot\Admin\img\news-700x435-2.jpg" />
+    <None Include="wwwroot\Admin\img\news-700x435-3.jpg" />
+    <None Include="wwwroot\Admin\img\news-700x435-4.jpg" />
+    <None Include="wwwroot\Admin\img\news-700x435-5.jpg" />
+    <None Include="wwwroot\Admin\img\news-800x500-1.jpg" />
+    <None Include="wwwroot\Admin\img\news-800x500-2.jpg" />
+    <None Include="wwwroot\Admin\img\news-800x500-3.jpg" />
+    <None Include="wwwroot\Admin\img\user.jpg" />
+    <None Include="wwwroot\assets\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\assets\css\paper-dashboard.css.map" />
+    <None Include="wwwroot\assets\demo\demo.js" />
+    <None Include="wwwroot\assets\fonts\nucleo-icons.woff2" />
+    <None Include="wwwroot\assets\js\core\bootstrap.min.js" />
+    <None Include="wwwroot\assets\js\core\jquery.min.js" />
+    <None Include="wwwroot\assets\js\core\popper.min.js" />
+    <None Include="wwwroot\assets\js\paper-dashboard.js" />
+    <None Include="wwwroot\assets\js\paper-dashboard.js.map" />
+    <None Include="wwwroot\assets\js\paper-dashboard.min.js" />
+    <None Include="wwwroot\assets\js\plugins\bootstrap-notify.js" />
+    <None Include="wwwroot\assets\js\plugins\chartjs.min.js" />
+    <None Include="wwwroot\assets\js\plugins\perfect-scrollbar.jquery.min.js" />
+    <None Include="wwwroot\assets\scss\paper-dashboard.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-chart.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-map.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-plain.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-stats.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\cards\_card-user.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_buttons.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_cards.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_dropdown.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_inputs.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_page-header.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_transparency.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\mixins\_vendor-prefixes.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\plugins\_plugin-animate-bootstrap-notify.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\plugins\_plugin-perfect-scrollbar.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_alerts.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_animated-buttons.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_buttons.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_cards.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_checkboxes-radio.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_dropdown.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_fixed-plugin.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_footers.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_images.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_inputs.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_misc.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_mixins.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_navbar.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_nucleo-outline.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_page-header.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_responsive.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_sidebar-and-main-panel.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_tables.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_typography.scss" />
+    <None Include="wwwroot\assets\scss\paper-dashboard\_variables.scss" />
+    <None Include="wwwroot\css\style.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\css\style.min.css" />
+    <None Include="wwwroot\img\ads-728x90.png" />
+    <None Include="wwwroot\img\news-110x110-1.jpg" />
+    <None Include="wwwroot\img\news-110x110-2.jpg" />
+    <None Include="wwwroot\img\news-110x110-3.jpg" />
+    <None Include="wwwroot\img\news-110x110-4.jpg" />
+    <None Include="wwwroot\img\news-110x110-5.jpg" />
+    <None Include="wwwroot\img\news-700x435-1.jpg" />
+    <None Include="wwwroot\img\news-700x435-2.jpg" />
+    <None Include="wwwroot\img\news-700x435-3.jpg" />
+    <None Include="wwwroot\img\news-700x435-4.jpg" />
+    <None Include="wwwroot\img\news-700x435-5.jpg" />
+    <None Include="wwwroot\img\news-800x500-1.jpg" />
+    <None Include="wwwroot\img\news-800x500-2.jpg" />
+    <None Include="wwwroot\img\news-800x500-3.jpg" />
+    <None Include="wwwroot\img\user.jpg" />
+    <None Include="wwwroot\js\main.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\lib\easing\easing.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\lib\easing\easing.min.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\lib\owlcarousel\assets\owl.carousel.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\lib\owlcarousel\assets\owl.carousel.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\lib\owlcarousel\assets\owl.theme.default.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\lib\owlcarousel\assets\owl.theme.default.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\lib\owlcarousel\assets\owl.theme.green.css">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\lib\owlcarousel\assets\owl.theme.green.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\lib\owlcarousel\owl.carousel.js">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Admin\img\success.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\img\success.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\lib\owlcarousel\owl.carousel.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

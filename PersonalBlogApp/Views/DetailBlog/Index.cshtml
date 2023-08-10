@@ -1,0 +1,458 @@
+﻿@model Blog
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>BizNews - Free News Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+    <base href="http://localhost:5116/" />
+    <!-- Favicon -->
+    <link href="~/img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    @{
+        ViewBag.success = null;
+        string session = Accessor.HttpContext.Session.GetString("acc");
+        User user = null;
+        if(session != null)
+            user = JsonConvert.DeserializeObject<User>(session);
+    }
+    <!-- Topbar Start -->
+    <div class="container-fluid d-none d-lg-block">
+        <div class="row align-items-center bg-dark px-lg-5">
+            <div class="col-lg-9">
+                <nav class="navbar navbar-expand-sm bg-dark p-3">
+                    <ul class="navbar-nav ml-n2">
+                        <li class="nav-item">
+                            <a class="nav-link text-body small" href="Login/Index">Đăng nhập</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-body small" href="Register/Index">Đăng ký</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3 text-right d-none d-md-block">
+                <nav class="navbar navbar-expand-sm bg-dark p-3">
+                </nav>
+            </div>
+        </div>
+        <div class="row align-items-center bg-white py-3 px-lg-5">
+            <div class="col-lg-4">
+                <a href="Home/Index" class="navbar-brand p-0 d-none d-lg-block">
+                    <h1 class="m-0 display-4 text-uppercase text-primary">Personal<span class="text-secondary font-weight-normal">Blogs</span></h1>
+                </a>
+            </div>
+            <div class="col-lg-8 text-center text-lg-right">
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+    <!-- Navbar Start -->
+    <div class="container-fluid p-0">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-2 py-lg-0 px-lg-5">
+            <a href="index.html" class="navbar-brand d-block d-lg-none">
+                <h1 class="m-0 display-4 text-uppercase text-primary">Biz<span class="text-white font-weight-normal">News</span></h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
+                <div class="navbar-nav mr-auto py-0">
+                    <a href="Home/Index" class="nav-item nav-link active">Trang chủ</a>
+                    <a href="Category/Index/-1" class="nav-item nav-link">Bài viết nổi bật</a>
+                    <a href="Category/Index/0" class="nav-item nav-link">Tất cả bài viết</a>
+                    <div class="nav-item dropdown">
+                        <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown">Thể loại</a>
+                        <div class="dropdown-menu rounded-0 m-0">
+                            @foreach (Category c in ViewBag.cates)
+                            {
+                                <a href="Category/Index/@c.Id" class="dropdown-item">@c.Name</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <form asp-controller="Category" asp-action="Index">
+                    <div class="input-group ml-auto d-none d-lg-flex" style="width: 100%; max-width: 300px;">
+
+                        <input value="@ViewBag.key" name="key" type="text" class="form-control border-0" placeholder="Tìm kiếm theo tiêu đề">
+                        <input type="hidden" name="id" value="0">
+                        <div class="input-group-append">
+                            <button type="submit" class="input-group-text bg-primary text-dark border-0 px-3">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+    <!-- Breaking News Start -->
+    <div class="container-fluid mt-5 mb-3 pt-3">
+        <div class="container">
+        </div>
+    </div>
+    <!-- Breaking News End -->
+    <!-- News With Sidebar Start -->
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- News Detail Start -->
+                    <div class="position-relative mb-3">
+                        <img class="img-fluid w-100" width="700" height="435" src="~/img/@Model.BigImage" style="object-fit: cover;">
+                        <div class="bg-white border border-top-0 p-4">
+                            <div class="mb-3">
+                                <a class="badge badge-primary text-uppercase font-weight-semi-bold p-2 mr-2"
+                                   href="">@Model.Category.Name</a>
+                                <a class="text-body" href="">@Model.PublishedDate</a>
+                            </div>
+                            <h1 class="mb-3 text-secondary text-uppercase font-weight-bold">@Model.Title</h1>
+                            @Html.Raw(Model.Content)
+                        </div>
+                        <div class="d-flex justify-content-between bg-white border border-top-0 p-4">
+                            <div class="d-flex align-items-center">
+                                <img class="rounded-circle mr-2" src="~/assets/img/@Model.Users.Img" width="25" height="25" alt="">
+                                <span>@Model.Users.Name</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="ml-3"><i class="far fa-eye mr-2"></i>@Model.Views</span>
+                                <span class="ml-3"><i class="far fa-comment mr-2"></i>@Model.Comments.Count</span>
+                            </div>
+                        </div>
+                        @if (user != null && user.Role == 1)
+                        {
+                            <input type="button" onclick="Update('@Model.Id')" value="Chỉnh sửa" />
+
+                            <input type="button" onclick="Delete('@Model.Id')" value="Xóa" />
+                        }
+                    </div>
+                    <!-- News Detail End -->
+                    <!-- Comment List Start -->
+                    <div class="mb-3">
+                        <div class="section-title mb-0">
+                            <h4 class="m-0 text-uppercase font-weight-bold">@Model.Comments.Count Bình luận</h4>
+                        </div>
+                        <div class="bg-white border border-top-0 p-4">
+                            @if (Model.Comments.Count == 0)
+                            {
+                                <div class="media mb-4">
+                                    <h5>Hiện tại không có bình luận</h5>
+                                </div>
+                            }
+                            else
+                            {
+                                if (Accessor.HttpContext.Session.GetString("acc") != null)
+                                {
+                                    @foreach (Comment c in @Model.Comments)
+                                    {
+                                        if(c.Status == false)
+                                        {
+                                            <div class="media mb-4">
+                                                <img src="~/assets/img/@c.Image" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                                <div class="media-body">
+                                                    <h6><a class="text-secondary font-weight-bold" href="">@c.Name</a> <small><i>@c.PublishedDate.Value.ToString("dd/MM/yyyy")</i></small></h6>
+                                                    <p>
+                                                        @c.CmContent
+                                                    </p>
+                                                    <button class="btn btn-sm btn-outline-secondary">Bình luận</button>
+                                                    <input type="button" onclick="okcmt('@c.Id','@Model.Id')" value="Duyệt bình luận"/>
+
+                                                    <input type="button" onclick="xoacmt('@c.Id','@Model.Id')" value="Xóa bình luận" />
+                                                    
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="media mb-4">
+                                                <img src="~/assets/img/@c.Image" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                                <div class="media-body">
+                                                    <h6><a class="text-secondary font-weight-bold" href="">@c.Name</a> <small><i>@c.PublishedDate.Value.ToString("dd/MM/yyyy")</i></small></h6>
+                                                    <p>
+                                                        @c.CmContent
+                                                    </p>
+                                                    <button class="btn btn-sm btn-outline-secondary">Bình luận</button>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    @foreach (Comment c in @Model.Comments)
+                                    {
+                                        if (c.Status == true)
+                                        {
+                                            <div class="media mb-4">
+                                                <img src="~/assets/img/@c.Image" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                                <div class="media-body">
+                                                    <h6><a class="text-secondary font-weight-bold" href="">@c.Name</a> <small><i>@c.PublishedDate.Value.ToString("dd/MM/yyyy")</i></small></h6>
+                                                    <p>
+                                                        @c.CmContent
+                                                    </p>
+                                                    <button class="btn btn-sm btn-outline-secondary">Bình luận</button>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            <script>
+                                function okcmt(id, bid) {
+                                    window.location = "DetailBlog/OkComment/" + id + "?bid=" + bid;
+                                }
+                                function xoacmt(id, bid) {
+                                    window.location = "DetailBlog/DeleteComment/" + id + "?bid=" + bid;
+                                }
+                                function Update(id, bid) {
+                                    window.location = "Admin/UpdateBlog/" + id;
+                                }
+                                function Delete(id, bid) {
+                                    window.location = "DetailBlog/DeleteBlog/" + id;
+                                }
+                            </script>
+                            @*<div class="media">
+                            <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                            <div class="media-body">
+                            <h6><a class="text-secondary font-weight-bold" href="">John Doe</a> <small><i>01 Jan 2045</i></small></h6>
+                            <p>
+                            Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor labore
+                            accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.
+                            </p>
+                            <button class="btn btn-sm btn-outline-secondary">Reply</button>
+                            <div class="media mt-4">
+                            <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1"
+                            style="width: 45px;">
+                            <div class="media-body">
+                            <h6><a class="text-secondary font-weight-bold" href="">John Doe</a> <small><i>01 Jan 2045</i></small></h6>
+                            <p>
+                            Diam amet duo labore stet elitr invidunt ea clita ipsum voluptua, tempor
+                            labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed
+                            eirmod ipsum.
+                            </p>
+                            <button class="btn btn-sm btn-outline-secondary">Reply</button>
+                            </div>
+                            </div>
+                            </div>
+                            </div>*@
+                        </div>
+                    </div>
+                    <!-- Comment List End -->
+                    <!-- Comment Form Start -->
+                    <div class="mb-3">
+                        <div class="section-title mb-0">
+                            <h4 class="m-0 text-uppercase font-weight-bold">Bình luận</h4>
+                        </div>
+                        <div class="bg-white border border-top-0 p-4">
+                            <form asp-action="PostComment" asp-controller="DetailBlog" method="post">
+                                <input type="hidden" name="id" value="@Model.Id" />
+                                @if (Accessor.HttpContext.Session.GetString("acc") == null)
+                                {
+                                    <div class="form-row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="name">Tên *</label>
+                                                <input required name="name" type="text" class="form-control" id="name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message">Bình luận *</label>
+                                        <textarea required name="Comment" id="message" cols="30" rows="5" class="form-control"></textarea>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="form-group">
+                                        <label for="message">Bình luận *</label>
+                                        <textarea required name="Comment" id="message" cols="30" rows="5" class="form-control"></textarea>
+                                    </div>
+                                }
+                                <div class="form-group mb-0">
+                                    <input type="submit" value="Đăng"
+                                           class="btn btn-primary font-weight-semi-bold py-2 px-3">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Comment Form End -->
+                </div>
+
+                <div class="col-lg-4">
+                    <!-- Tags Start -->
+                    <div class="mb-3">
+                        <div class="section-title mb-0">
+                            <h4 class="m-0 text-uppercase font-weight-bold">Thể loại</h4>
+                        </div>
+                        <div class="bg-white border border-top-0 p-3">
+                            <div class="d-flex flex-wrap m-n1">
+                                @foreach (Category c in ViewBag.cates)
+                                {
+                                    <a href="Category/Index/@c.Id" class="btn btn-sm btn-outline-secondary m-1">@c.Name</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="section-title mb-0">
+                            <h4 class="m-0 text-uppercase font-weight-bold">Xu hướng</h4>
+                        </div>
+
+                        <div class="bg-white border border-top-0 p-3">
+                            @foreach (Blog b in ViewBag.specialblogs)
+                            {
+                                <div class="d-flex align-items-center bg-white mb-3" style="height: 110px;">
+                                    <img height="110" width="110" src="~/img/@b.BigImage" alt="">
+                                    <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
+                                        <div class="mb-2">
+                                            <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">@b.Category.Name</a>
+                                            <a class="text-body" href=""><small>@b.PublishedDate.ToString("dd/MM/yyyy")</small></a>
+                                        </div>
+                                        <a class="h6 m-0 text-secondary text-uppercase font-weight-bold" href="">@b.Title.Substring(0,40)...</a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <!-- Popular News End -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- News With Sidebar End -->
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark pt-5 px-sm-3 px-md-5 mt-5">
+        <div class="row py-4">
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h5 class="mb-4 text-white text-uppercase font-weight-bold">Get In Touch</h5>
+                <p class="font-weight-medium"><i class="fa fa-map-marker-alt mr-2"></i>123 Street, New York, USA</p>
+                <p class="font-weight-medium"><i class="fa fa-phone-alt mr-2"></i>+012 345 67890</p>
+                <p class="font-weight-medium"><i class="fa fa-envelope mr-2"></i>info@example.com</p>
+                <h6 class="mt-4 mb-3 text-white text-uppercase font-weight-bold">Follow Us</h6>
+                <div class="d-flex justify-content-start">
+                    <a class="btn btn-lg btn-secondary btn-lg-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-lg btn-secondary btn-lg-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-lg btn-secondary btn-lg-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-lg btn-secondary btn-lg-square mr-2" href="#"><i class="fab fa-instagram"></i></a>
+                    <a class="btn btn-lg btn-secondary btn-lg-square" href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h5 class="mb-4 text-white text-uppercase font-weight-bold">Popular News</h5>
+                <div class="mb-3">
+                    <div class="mb-2">
+                        <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">Business</a>
+                        <a class="text-body" href=""><small>Jan 01, 2045</small></a>
+                    </div>
+                    <a class="small text-body text-uppercase font-weight-medium" href="">Lorem ipsum dolor sit amet elit. Proin vitae porta diam...</a>
+                </div>
+                <div class="mb-3">
+                    <div class="mb-2">
+                        <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">Business</a>
+                        <a class="text-body" href=""><small>Jan 01, 2045</small></a>
+                    </div>
+                    <a class="small text-body text-uppercase font-weight-medium" href="">Lorem ipsum dolor sit amet elit. Proin vitae porta diam...</a>
+                </div>
+                <div class="">
+                    <div class="mb-2">
+                        <a class="badge badge-primary text-uppercase font-weight-semi-bold p-1 mr-2" href="">Business</a>
+                        <a class="text-body" href=""><small>Jan 01, 2045</small></a>
+                    </div>
+                    <a class="small text-body text-uppercase font-weight-medium" href="">Lorem ipsum dolor sit amet elit. Proin vitae porta diam...</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h5 class="mb-4 text-white text-uppercase font-weight-bold">Categories</h5>
+                <div class="m-n1">
+                    <a href="" class="btn btn-sm btn-secondary m-1">Politics</a>
+                    <a href="" class="btn btn-sm btn-secondary m-1">Business</a>
+                    <a href="" class="btn btn-sm btn-secondary m-1">Corporate</a>
+                    <a href="" class="btn btn-sm btn-secondary m-1">Business</a>
+                    <a href="" class="btn btn-sm btn-secondary m-1">Health</a>
+                    <a href="" class="btn btn-sm btn-secondary m-1">Education</a>
+                    <a href="" class="btn btn-sm btn-secondary m-1">Science</a>
+                    <a href="" class="btn btn-sm btn-secondary m-1">Business</a>
+                    <a href="" class="btn btn-sm btn-secondary m-1">Foods</a>
+                    <a href="" class="btn btn-sm btn-secondary m-1">Entertainment</a>
+                    <a href="" class="btn btn-sm btn-secondary m-1">Travel</a>
+                    <a href="" class="btn btn-sm btn-secondary m-1">Lifestyle</a>
+                    <a href="" class="btn btn-sm btn-secondary m-1">Politics</a>
+                    <a href="" class="btn btn-sm btn-secondary m-1">Business</a>
+                    <a href="" class="btn btn-sm btn-secondary m-1">Corporate</a>
+                    <a href="" class="btn btn-sm btn-secondary m-1">Business</a>
+                    <a href="" class="btn btn-sm btn-secondary m-1">Health</a>
+                    <a href="" class="btn btn-sm btn-secondary m-1">Education</a>
+                    <a href="" class="btn btn-sm btn-secondary m-1">Science</a>
+                    <a href="" class="btn btn-sm btn-secondary m-1">Business</a>
+                    <a href="" class="btn btn-sm btn-secondary m-1">Foods</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h5 class="mb-4 text-white text-uppercase font-weight-bold">Flickr Photos</h5>
+                <div class="row">
+                    <div class="col-4 mb-3">
+                        <a href=""><img class="w-100" src="img/news-110x110-1.jpg" alt=""></a>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <a href=""><img class="w-100" src="img/news-110x110-2.jpg" alt=""></a>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <a href=""><img class="w-100" src="img/news-110x110-3.jpg" alt=""></a>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <a href=""><img class="w-100" src="img/news-110x110-4.jpg" alt=""></a>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <a href=""><img class="w-100" src="img/news-110x110-5.jpg" alt=""></a>
+                    </div>
+                    <div class="col-4 mb-3">
+                        <a href=""><img class="w-100" src="img/news-110x110-1.jpg" alt=""></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid py-4 px-sm-3 px-md-5" style="background: #111111;">
+        <p class="m-0 text-center">
+            &copy; <a href="#">Your Site Name</a>. All Rights Reserved.
+
+            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+            Design by <a href="https://htmlcodex.com">HTML Codex</a>
+        </p>
+    </div>
+    <!-- Footer End -->
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary btn-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/easing/easing.min.js"></script>
+    <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="~/js/main.js"></script>
+</body>
+
+</html>
